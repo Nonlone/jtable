@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="x-ua-compatible" content="IE=7" />
+        <title>Jtable</title>
+        <script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript" src="jtable.js"></script>
+        <script type="text/javascript">
+        	Date.prototype.format = function(format) //author: meizz 
+				{ 
+				  var o = { 
+				    "M+" : this.getMonth()+1, //month 
+				    "d+" : this.getDate(),    //day 
+				    "h+" : this.getHours(),   //hour 
+				    "m+" : this.getMinutes(), //minute 
+				    "s+" : this.getSeconds(), //second 
+				    "q+" : Math.floor((this.getMonth()+3)/3),  //quarter 
+				    "S" : this.getMilliseconds() //millisecond 
+				  } 
+				  if(/(y+)/.test(format)) format=format.replace(RegExp.$1, 
+				    (this.getFullYear()+"").substr(4 - RegExp.$1.length)); 
+				  for(var k in o)if(new RegExp("("+ k +")").test(format)) 
+				    format = format.replace(RegExp.$1, 
+				      RegExp.$1.length==1 ? o[k] : 
+				        ("00"+ o[k]).substr((""+ o[k]).length)); 
+				  return format; 
+				} 
+        </script>
+        <script type="text/javascript">
+        	var staFields = [ {
+                field : "tbodytd",
+                format : "<td id='@field' style='text-align:center;'>"
+	        }, {
+	                field : "date",
+	                name : "时间"
+	        }, {
+	                field : "allPageViews",
+	                name : "全店<br/>浏览量"
+	        }  ];
+
+	        var dynFields = [ {
+	                field : "tbodytd",
+	                format : "<td id='@field' style='text-align:center;'>"
+	        }, {
+	                field : "theadth",
+	                format : "<th id='@field' style='text-align:center;'>"
+	        }, {
+	                field : "allUserViews",
+	                name : "全店<br/>访客数"
+	        }, {
+	                field : "avgPageViews",
+	                name : "平均页面<br>访问数"
+	        }, {
+	                field : "avgStayTimes",
+	                name : "平均停留时间<br/>详情页(秒)"
+	        }, {
+	                field : "indPageViews",
+	                name : "首页<br/>浏览量"
+	        }, {
+	                field : "indUserViews",
+	                name : "首页<br/>访客数"
+	        }, {
+	                field : "catPageViews",
+	                name : "分类页<br/>浏览量"
+	        }, {
+	                field : "catUserViews",
+	                name : "分类页<br/>访客数"
+	        }, {
+	                field : "successUsers",
+	                name : "成交客户数"
+	        }, {
+	                field : "salePrice",
+	                name : "客单价(元)"
+	        }, {
+	                field : "successTrades",
+	                name : "店铺销量"
+	        }, {
+	                field : "relateSale",
+	                name : "关联销售<br/>订单占比",
+	                format:"@relateSale%"
+	        }, {
+	                field : "plotSale",
+	                name : "促销销售<br/>订单占比",
+	                format:"@plotSale%"
+	        }, {
+	                field : "shopCollect",
+	                name : "店铺收藏量"
+	        }, {
+	                field : "itemsCollect",
+	                name : "宝贝收藏量"
+	        }  ];
+
+	        var Fields = [ {
+	                field : "tbodytd",
+	                format : "<td id='@field' style='text-align:center;'>"
+	        }, {
+	                field : "theadth",
+	                format : "<th id='@field' style='text-align:center;'>"
+	        }, {
+	        		field : "date",
+	        		name : "日期"
+	        }, {
+	                field : "allPageViews",
+	                name : "全店<br/>浏览量"
+	        }, {
+	                field : "allUserViews",
+	                name : "全店<br/>访客数"
+	        }, {
+	                field : "avgPageViews",
+	                name : "平均页面<br>访问数"
+	        }, {
+	                field : "avgStayTimes",
+	                name : "平均停留时间<br/>详情页(秒)"
+	        }, {
+	                field : "indPageViews",
+	                name : "首页<br/>浏览量"
+	        }, {
+	                field : "indUserViews",
+	                name : "首页<br/>访客数"
+	        }, {
+	                field : "catPageViews",
+	                name : "分类页<br/>浏览量"
+	        }, {
+	                field : "catUserViews",
+	                name : "分类页<br/>访客数"
+	        } ];
+
+        	function generateData() {
+        		var data = [];
+		        var firstDate = new Date();
+		        firstDate.setDate(firstDate.getDate() - 30);
+		        data.length = 0;
+		        for ( var i = 0; i < 30; i++) {
+			        var newDate = new Date(firstDate);
+			        newDate.setDate(newDate.getDate() + i);
+			        var allpvs = Math.round(Math.random() * 10000);
+			        var alluvs = Math.round(Math.random() * 10000);
+			        var avgpv = Math.round(allpvs / alluvs);
+			        var avgstaytime = Math.round(Math.random() * 10);
+			        var indpvs = Math.round(Math.random() * 4000);
+			        var induvs = Math.round(Math.random() * 4000);
+			        var catpvs = Math.round(Math.random() * 6000);
+			        var catuvs = Math.round(Math.random() * 6000);
+			        var sucturn = Math.round(Math.random() * 100);
+			        var sucusers = Math.round(Math.random() * 10000);
+			        var sucitems = Math.round(Math.random() * 10000);
+			        var suctrades = Math.round(Math.random() * 10000);
+			        var relatesale = Math.round(Math.random() * 100);
+			        var plotsale = Math.round(Math.random() * 100);
+			        var saleprice = Math.round(Math.random() * 4000);
+			        var shopcol = Math.round(Math.random() * 6000);
+			        var itemcol = Math.round(Math.random() * 6000);
+			        var paidrate = Math.round(Math.random() * 100);
+			        var avgtradeitems = Math.round(Math.random() * 100);
+			        var changerate = Math.round(Math.random() * 100);
+			        var loserate = Math.round(Math.random() * 100);
+			        var losetrades = Math.round(Math.random() * 100);
+			        var refundtrades = Math.round(Math.random() * 100);
+
+			        data.push({
+			                Date : newDate,
+			                date : newDate.format("yyyy-MM-dd"),
+			                allPageViews : allpvs,
+			                allUserViews : alluvs,
+			                avgPageViews : avgpv,
+			                avgStayTimes : avgstaytime,
+			                indPageViews : indpvs,
+			                indUserViews : induvs,
+			                catPageViews : catpvs,
+			                catUserViews : catuvs,
+			                successTurn : sucturn,
+			                successUsers : sucusers,
+			                salePrice : saleprice,
+			                successItems : sucitems,
+			                successTrades : suctrades,
+			                relateSale : relatesale,
+			                plotSale : plotsale,
+			                shopCollect : shopcol,
+			                itemsCollect : itemcol,
+			                paidRate : paidrate,
+			                avgTradeItems : avgtradeitems,
+			                changeRate : changerate,
+			                loseRate : loserate,
+			                loseTrades : losetrades,
+			                refundTrades : refundtrades
+			        });
+	        	}
+	        	return data;
+        	}
+        	var data = generateData();
+        	jQuery(document).ready(function($) {
+        		var dynOption = {
+        			data:data,//渲染数据
+        			staFields:staFields,//静态表格域
+        			dynFields:dynFields,//动态表格域
+        			scrollStart:8,//开始滚动索引
+        			scrollBarHeight:18,//滚动条高
+        			staWidth:150,//静态表格宽度
+        			dynWidth:700,//动态表格宽度
+        			dynCellWidth:90//动态表格单格宽度
+        		};
+        		$("#listTable").jtable(data,Fields);
+        		$("#dynTable").jexTable(dynOption);
+        	});
+        </script>
+   	</head>
+   	<body>
+   		<table id="listTable"></table>
+   		<div style="margin-top:20px;" id="dynTable"></div>
+   	</body>
+</html>
