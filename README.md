@@ -19,9 +19,9 @@ struct in fields:
 field has three keys:
 
 field = {
-	field : key of the data to render;
-	name : table head in thead;
-	format : customerize format in table cell,this will warp into <td></td>/<th></th> to compele the cell,
+	field , key of the data to render;
+	name , table head in thead;
+	format , customerize format in table cell,this will warp into <td></td>/<th></th> to compele the cell,
 }	
 
 in format you can use @+key (key in data) to make you special field with mutily data to show 
