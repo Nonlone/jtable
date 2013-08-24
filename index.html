@@ -191,14 +191,14 @@
         	var data = generateData();
         	jQuery(document).ready(function($) {
         		var dynOption = {
-        			data:data,//渲染数据
-        			staFields:staFields,//静态表格域
-        			dynFields:dynFields,//动态表格域
-        			scrollStart:8,//开始滚动索引
+        			data:data,//render data
+        			staFields:staFields,//static table fields
+        			dynFields:dynFields,//dynamic table fields
+        			scrollStart:8,//scroll start fields
         			scrollBarHeight:18,//滚动条高
-        			staWidth:150,//静态表格宽度
-        			dynWidth:700,//动态表格宽度
-        			dynCellWidth:90//动态表格单格宽度
+        			staWidth:150,//static table width
+        			dynWidth:700,//dynamic table width
+        			dynCellWidth:90//extend cell width in dynamic part
         		};
         		$("#listTable").jtable(data,Fields);
         		$("#dynTable").jexTable(dynOption);
