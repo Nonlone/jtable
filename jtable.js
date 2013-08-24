@@ -1,5 +1,5 @@
 /**
-	@author Ezir
+	@author Nonlone
 	@version 1.0
 	@param {id,jQuery Obj} table
 	@param {json} jsonData
@@ -248,17 +248,9 @@ jQuery.fn.jexTable = function(option) {
         $dynContainer.append($dynTableContainer);
         $drawDiv.append($dynContainer);
 
-        // var dynTableDivId = "dynTableDiv";
-
-        // var dynTableScrollContainer = $("#" + dynTableDivId).find(".dynTableScrollContainer");
-        // var dynTableContainer = $("#" + dynTableDivId).find(".dynTableContainer");
-
-        // var staTable = staTableContainer.children(".staTable");
-        // var dynTable = dynTableContainer.children(".dynTable");
         var staColspan = $staTable.jtable(data, staFields).find('th').length;
         var dynColspan = $dynTable.jtable(data, dynFields).find('th').length;
         var ext = dynColspan - dynScrollStart;
-        console.log(ext);
         if (ext > 0) {
             //set scroll
             $dynTableScrollContainer.css("overflow-x", "scroll");
@@ -278,8 +270,6 @@ jQuery.fn.jexTable = function(option) {
             $dynTableScrollContainer.children("div").css("width", dynWidth);
             $dynTable.css("width", dynWidth);
         }
-
-        // $("#" + drawDiv).html($("#" + dynTableDivId).html());
 
         if (ext > 0) {
             //set event
