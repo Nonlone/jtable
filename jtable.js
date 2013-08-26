@@ -210,9 +210,10 @@ jQuery.fn.jexTable = function(option) {
         $drawDiv.find(".dynTable").remove();
         //init dyn Container
         $dynContainer = $("<div></div>");
+        $dynContainer.addClass('dynContainer');
         $dynContainer.css({
             "float": "left",
-            "margin-left": "-1px",
+            // "margin-left": "-1px",
             "width": dynWidth + "px"
         });
         //init dynTableScrollContainer
